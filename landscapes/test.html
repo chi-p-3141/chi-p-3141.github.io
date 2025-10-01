@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>HTML tests</title>
+  <script>
+    MathJax = {
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js">
+  </script>
+</head>
+
+
+<body>
+  <script>
+const textData = {
+  "base": "a",
+  "MIS": "b",
+  "two_half_hier": "c"
+}     
+      function change_text_dict(id,key)
+      {
+        document.getElementById(id).textContent = textData[key];
+        return null;
+      }
+  </script>
+<div style="text-align: center;">
+<center><p id="infoPar" style="min-width:660px;min-height:200px;max-width:600px;max-height:200px;padding: 10px; border: 2px solid black;"><br><br><br>This is information text <br> about what the user has clicked below.</p></center>
+</div>
+<svg width="1600" height="300" xmlns="http://www.w3.org/2000/svg">
+ <rect width="1500" height="50" x="50" y="110" style="fill:white;stroke-width:1;stroke:black" />
+ <line x1="50" y1="110" x2="50" y2="180" style="stroke:red;stroke-width:3" />
+  <foreignObject x="25" y="180" width="50" height="30">
+    <div style="text-align: center; xmlns="http://www.w3.org/1999/xhtml" style="font-family:Times; font-size:15px">
+    \(O(1)\)
+    </div>
+  </foreignObject>
+   <line x1="1550" y1="110" x2="1550" y2="180" style="stroke:red;stroke-width:3" />
+  <foreignObject x="1525" y="180" width="50" height="30">
+    <div style="text-align: center; xmlns="http://www.w3.org/1999/xhtml" style="font-family:Times; font-size:15px">
+    \(\Theta(n)\)
+    </div>
+  </foreignObject>
+  <line x1="1050" y1="110" x2="1050" y2="180" style="stroke:red;stroke-width:3" />
+  <foreignObject x="1000" y="180" width="100" height="30">
+    <div style="text-align: center; xmlns="http://www.w3.org/1999/xhtml" style="font-family:Times; font-size:15px">
+    \(\Theta(\log n)\)
+    </div>
+  </foreignObject>
+  <line x1="550" y1="110" x2="550" y2="180" style="stroke:red;stroke-width:3" />
+  <foreignObject x="500" y="180" width="100" height="30">
+    <div style="text-align: center; xmlns="http://www.w3.org/1999/xhtml" style="font-family:Times; font-size:15px">
+    \(\Theta(\log^* n)\)
+    </div>
+  </foreignObject>
+  <line x1="950" y1="175" x2="950" y2="90" style="stroke:black;stroke-width:2" />
+  <text x="950" y="80" text-anchor="middle" onclick="change_text_dict('infoPar','MIS')">MIS</text>
+  <foreignObject x="900" y="180" width="100" height="50">
+    <div style="text-align: center; xmlns="http://www.w3.org/1999/xhtml" style="font-family:Times; font-size:15px">
+    \(\Theta(\frac{\log n}{\log\log n})\)
+    </div>
+  </foreignObject>
+</svg> 
+
+</body>
+</html>

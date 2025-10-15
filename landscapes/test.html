@@ -2,8 +2,10 @@
 <html lang=en>
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
+  <meta name="viewport" content="width=device-width", initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
   <title>HTML tests</title>
+  <!-- LaTeX (MathJax) scripts -->
   <script>
     MathJax = {
       svg: {
@@ -14,59 +16,81 @@
   <script id="MathJax-script" async
           src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js">
   </script>
+  <!-- Preventing FOUC -->
+  <script>
+    let FF_FOUC_FIX;
+  </script>
 </head>
 
 
 <body>
-  <script>
-const textData = {
-  "base": "a",
-  "MIS": "b",
-  "two_half_hier": "c"
-}     
-      function change_text_dict(id,key)
-      {
-        document.getElementById(id).textContent = textData[key];
-        return null;
-      }
-  </script>
-<div style="text-align: center;">
-<center><p id="infoPar" style="min-width:660px;min-height:200px;max-width:600px;max-height:200px;padding: 10px; border: 2px solid black;"><br><br><br>This is information text <br> about what the user has clicked below.</p></center>
+<!-- Info Box -->
+<div class="infoBox">
+<center><p id="info" ><br><br><br>This is information text <br> about what the user has clicked below.</p></center>
 </div>
-<svg width="1600" height="300" xmlns="http://www.w3.org/2000/svg">
- <rect width="1500" height="50" x="50" y="110" style="fill:white;stroke-width:1;stroke:black" />
- <line x1="50" y1="110" x2="50" y2="180" style="stroke:red;stroke-width:3" />
-  <foreignObject x="25" y="180" width="50" height="30">
-    <div style="text-align: center; xmlns="http://www.w3.org/1999/xhtml" style="font-family:Times; font-size:15px">
-    \(O(1)\)
-    </div>
-  </foreignObject>
-   <line x1="1550" y1="110" x2="1550" y2="180" style="stroke:red;stroke-width:3" />
-  <foreignObject x="1525" y="180" width="50" height="30">
-    <div style="text-align: center; xmlns="http://www.w3.org/1999/xhtml" style="font-family:Times; font-size:15px">
-    \(\Theta(n)\)
-    </div>
-  </foreignObject>
-  <line x1="1050" y1="110" x2="1050" y2="180" style="stroke:red;stroke-width:3" />
-  <foreignObject x="1000" y="180" width="100" height="30">
-    <div style="text-align: center; xmlns="http://www.w3.org/1999/xhtml" style="font-family:Times; font-size:15px">
-    \(\Theta(\log n)\)
-    </div>
-  </foreignObject>
-  <line x1="550" y1="110" x2="550" y2="180" style="stroke:red;stroke-width:3" />
-  <foreignObject x="500" y="180" width="100" height="30">
-    <div style="text-align: center; xmlns="http://www.w3.org/1999/xhtml" style="font-family:Times; font-size:15px">
-    \(\Theta(\log^* n)\)
-    </div>
-  </foreignObject>
-  <line x1="950" y1="175" x2="950" y2="90" style="stroke:black;stroke-width:2" />
-  <text x="950" y="80" text-anchor="middle" onclick="change_text_dict('infoPar','MIS')">MIS</text>
-  <foreignObject x="900" y="180" width="100" height="50">
-    <div style="text-align: center; xmlns="http://www.w3.org/1999/xhtml" style="font-family:Times; font-size:15px">
-    \(\Theta(\frac{\log n}{\log\log n})\)
-    </div>
-  </foreignObject>
-</svg> 
 
+<!-- Diagram -->
+<div style="text-align:center; padding-top:30px;">
+<div style="border-style: solid;width: 70%;height:50%; margin:auto;">
+<div id="diagram-container" style="max-width:inherit; max-height:inherit; overflow-y:auto; overflow-x:auto;">
+<svg id="diagram" viewBox="-50 -50 1600 1600" style="display: inline; width: inherit; height: inherit; zoom:1;">
+<!-- Chriego (Triangle) -->
+<polygon points="0,1500 1500,0 1500,1500" style="fill:pink;stroke:black;stroke-width:3" />
+<!-- Grid -->
+ <line x1="0" y1="1501" x2="-30" y2="1501" style="stroke:grey;stroke-width:2" />
+ <line x1="0" y1="1501" x2="0" y2="1531" style="stroke:grey;stroke-width:2" />
+ <line x1="300" y1="1201" x2="300" y2="1531" style="stroke:grey;stroke-width:2" />
+ <line x1="600" y1="901" x2="600" y2="1531" style="stroke:grey;stroke-width:2" />
+ <line x1="900" y1="601" x2="900" y2="1531" style="stroke:grey;stroke-width:2" />
+ <line x1="1200" y1="301" x2="1200" y2="1531" style="stroke:grey;stroke-width:2" />
+</svg>
+</div>
+</div>
+</div>
+<button id="zoomin">Zoom in</button><button id="zoomout">Zoom out</button><button id="zoomres">Reset</button>
 </body>
+
+
+<!-- After page loading scripts. Keep AFTER body! !-->
+
+<!-- text change script-->
+  <script>
+  const textData = {
+    "base": "a",
+    "MIS": "b",
+    "two_half_hier": "c"
+  }     
+  var changeText = function() {
+      var key = this.getAttribute("text-id");
+      document.getElementById("info").textContent = textData[key];
+      return null
+  };
+  </script>
+  
+<!-- zoom script-->
+<script>
+var diag = document.getElementById('diagram');
+var zoomFactor = 6/5;
+var zoomIn = function() {
+  diag.style.zoom = Math.min(diag.style.zoom*zoomFactor,8);
+  console.log(diag.style.zoom);
+};
+var zoomOut = function() {
+  diag.style.zoom = Math.max(diag.style.zoom/zoomFactor,0.125);
+  console.log(diag.style.zoom);
+};
+</script>
+  
+<!-- clickable things script (PUT LAST!) -->
+<script>
+  var gaps = document.getElementsByClassName("gap");
+  var probs = document.getElementsByClassName("prob");
+  
+  for (var i = 0; i < probs.length; i++) {
+    probs[i].addEventListener('click', changeText);
+    }
+  
+  document.getElementById('zoomin').addEventListener('click', zoomIn)
+  document.getElementById('zoomout').addEventListener('click', zoomOut)
+</script>
 </html>

@@ -1,0 +1,12 @@
+.infoBox {
+  position: fixed;
+  top: 10px; left: 10px;
+  background: lavender;
+  text-align: center;
+  min-width:660px;
+  min-height:200px;
+  max-width:600px;
+  max-height:200px;
+  padding: 10px;
+  border: 2px solid black;
+  }

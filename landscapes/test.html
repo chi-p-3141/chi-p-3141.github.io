@@ -30,21 +30,58 @@
 </div>
 
 <!-- Diagram -->
-<div style="text-align:center; padding-top:30px;">
-<div style="border-style: solid;width: 70%;height:50%; margin:auto;">
-<div id="diagram-container" style="max-width:inherit; max-height:inherit; overflow-y:auto; overflow-x:auto;">
-<svg id="diagram" viewBox="-50 -50 1600 1600" style="display: inline; width: inherit; height: inherit; zoom:1;">
-<!-- Chriego (Triangle) -->
-<polygon points="0,1500 1500,0 1500,1500" style="fill:pink;stroke:black;stroke-width:3" />
-<!-- Grid -->
- <line x1="0" y1="1501" x2="-30" y2="1501" style="stroke:grey;stroke-width:2" />
- <line x1="0" y1="1501" x2="0" y2="1531" style="stroke:grey;stroke-width:2" />
- <line x1="300" y1="1201" x2="300" y2="1531" style="stroke:grey;stroke-width:2" />
- <line x1="600" y1="901" x2="600" y2="1531" style="stroke:grey;stroke-width:2" />
- <line x1="900" y1="601" x2="900" y2="1531" style="stroke:grey;stroke-width:2" />
- <line x1="1200" y1="301" x2="1200" y2="1531" style="stroke:grey;stroke-width:2" />
+<div style="text-align:center;">
+<div class="scroll_container">
+<svg id="diagram" viewBox="-60 -60 2000 1750" width="95%" height="95%">
+<!-- Chriego (Triangle) background -->
+<polygon points="0,1500 1500,0 1500,1500" style="fill:pink" />
+<!-- Grid (vertical) -->
+ <line x1="-2" y1="1501" x2="-2" y2="1530" style="stroke:grey;stroke-width:2" />
+<foreignObject x="-57" y="1535" width="110" height="100">
+  <div class="latex_label">
+    \(O(1)\)
+  </div>
+</foreignObject>
+ <line x1="300" y1="1201" x2="300" y2="1530" style="stroke:grey;stroke-width:2" />
+<foreignObject x="160" y="1535" width="280" height="100">
+  <div class="latex_label">
+    \(\Theta(\log\log^* n)\)
+  </div>
+</foreignObject>
+ <line x1="600" y1="901" x2="600" y2="1530" style="stroke:grey;stroke-width:2" />
+<foreignObject x="495" y="1535" width="210" height="100">
+  <div class="latex_label">
+    \(\Theta(\log^* n)\)
+  </div>
+</foreignObject>
+ <line x1="900" y1="601" x2="900" y2="1530" style="stroke:grey;stroke-width:2" />
+<foreignObject x="770" y="1535" width="260" height="100">
+  <div class="latex_label">
+    \(\Theta(\log\log n)\)
+  </div>
+</foreignObject>
+ <line x1="1200" y1="301" x2="1200" y2="1530" style="stroke:grey;stroke-width:2" />
+<foreignObject x="1100" y="1535" width="200" height="100">
+  <div class="latex_label">
+    \(\Theta(\log n)\)
+  </div>
+</foreignObject>
+ <line x1="1500" y1="1501" x2="1500" y2="1530" style="stroke:grey;stroke-width:2" />
+<foreignObject x="1400" y="1535" width="200" height="100">
+  <div class="latex_label">
+    \(\Theta(n)\)
+  </div>
+</foreignObject>
+<!-- Grid (horizontal) -->
+ <line x1="1500" y1="1501" x2="1530" y2="1501" style="stroke:grey;stroke-width:2" />
+ <line x1="301" y1="1200" x2="1530" y2="1200" style="stroke:grey;stroke-width:2" />
+ <line x1="601" y1="900" x2="1530" y2="900" style="stroke:grey;stroke-width:2" />
+ <line x1="901" y1="600" x2="1530" y2="600" style="stroke:grey;stroke-width:2" />
+ <line x1="1201" y1="300" x2="1530" y2="300" style="stroke:grey;stroke-width:2" />
+ <line x1="1501" y1="-2" x2="1530" y2="-2" style="stroke:grey;stroke-width:2" />
+<!-- Chriego (Triangle) lines -->
+<polygon points="0,1500 1500,0 1500,1500" style="fill:none;stroke:black;stroke-width:3" />
 </svg>
-</div>
 </div>
 </div>
 <button id="zoomin">Zoom in</button><button id="zoomout">Zoom out</button><button id="zoomres">Reset</button>
@@ -69,28 +106,31 @@
   
 <!-- zoom script-->
 <script>
-var diag = document.getElementById('diagram');
-var zoomFactor = 6/5;
-var zoomIn = function() {
-  diag.style.zoom = Math.min(diag.style.zoom*zoomFactor,8);
-  console.log(diag.style.zoom);
-};
-var zoomOut = function() {
-  diag.style.zoom = Math.max(diag.style.zoom/zoomFactor,0.125);
-  console.log(diag.style.zoom);
-};
+var svg = document.getElementById('diagram');
+
+function resize(scale) {
+  let svgWidth = parseInt(svg.getAttribute('width'));
+  svg.setAttribute('width', `${(svgWidth * scale)}%`);
+  let svgHeight = parseInt(svg.getAttribute('height'));
+  svg.setAttribute('height', `${(svgHeight * scale)}%`);
+}
+function zoomReset() {
+  svg.setAttribute('width', `95%`);
+  svg.setAttribute('height', `95%`);
+}
 </script>
   
 <!-- clickable things script (PUT LAST!) -->
 <script>
   var gaps = document.getElementsByClassName("gap");
   var probs = document.getElementsByClassName("prob");
+  var zoomFactor = 6/5;
   
   for (var i = 0; i < probs.length; i++) {
     probs[i].addEventListener('click', changeText);
     }
-  
-  document.getElementById('zoomin').addEventListener('click', zoomIn)
-  document.getElementById('zoomout').addEventListener('click', zoomOut)
+  document.getElementById('zoomin').addEventListener('click', ()=>{resize(zoomFactor)});
+  document.getElementById('zoomout').addEventListener('click', ()=>{resize(1/zoomFactor)});
+  document.getElementById('zoomres').addEventListener('click', zoomReset);
 </script>
 </html>

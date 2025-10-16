@@ -10,3 +10,21 @@
   padding: 10px;
   border: 2px solid black;
   }
+
+.scroll_container {
+  border-style: solid;
+  margin:auto;
+  width:115vh;
+  height:95vh;
+  overflow:auto;
+}
+
+.latex_label {
+  text-align: center;
+  font-family:Times;
+  font-size:45px
+}
+
+#diagram {
+  margin: auto;
+}
